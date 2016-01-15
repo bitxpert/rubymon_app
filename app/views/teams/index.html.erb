@@ -1,0 +1,19 @@
+<div><%= link_to "Create New Team", new_user_team_path(current_user)%></div>
+<div><%= link_to "Monsters", user_monsters_path(current_user)%></div>
+<table>
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @teams && @teams.each do |team| %>
+			<tr>
+				<td><%= team.name %></td>
+				<td colspan="2"><span><%= link_to "Edit", edit_user_team_path(team, current_user) %></span>
+				<td colspan="2"><span><%= link_to 'Delete', [current_user, team], :confirm => "Are you sure? ", :method => :delete%></span>
+			</tr>
+		<% end %>
+	</tbody>
+</table> 

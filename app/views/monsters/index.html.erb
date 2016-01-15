@@ -1,0 +1,37 @@
+<div><%= link_to "Create New Monster", new_user_monster_path(current_user)%></div>
+<div><%= link_to "Teams", user_teams_path(current_user)%></div>
+<table class="datatable">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Power</th>
+			<th>Type</th>
+			<th>Team</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @monsters && @monsters.each do |monster| %>
+			<tr>
+				<td><%= monster.name %></td>
+				<td><%= monster.power %></td>
+				<td><%= monster.monster_type %></td>
+				<td class="team">
+					<% if monster.team.present? %>
+						<%= monster.team.name %>
+					<% else %>
+						<%= collection_select(:monster, :team_id, current_user.teams, :id, :name, prompt: true) %>
+						<%= link_to "Add", "javascript:void(0)", class: "add_team", data: {id: monster.id, user: current_user.id}%>
+					<% end %>
+				</td>
+				<td>
+					<span><%= link_to "Edit", edit_user_monster_path(monster, current_user) %></span>
+				</td>
+				<td>
+					<span><%= link_to 'Delete', [current_user, monster], :confirm => "Are you sure? ", :method => :delete%></span>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table> 

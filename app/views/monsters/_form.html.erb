@@ -1,0 +1,20 @@
+<%= form_for [current_user, @monster] do |f| %>
+	<div>
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+	</div>
+	<div>
+		<%= f.label :power %>
+		<%= f.text_field :power %>
+	</div>
+	<div>
+		<%= f.label :monster_type %>
+		<%= f.collection_select :monster_type, Monster::MONSTER_TYPES, :to_s, :to_s, include_blank: true %>
+	</div>
+	<div>
+		<%= f.hidden_field :user_id, value: current_user.id %>
+	</div>
+	<div>
+		<%= f.submit%>
+	</div>
+<% end %>
